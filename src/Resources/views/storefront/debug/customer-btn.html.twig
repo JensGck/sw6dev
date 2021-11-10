@@ -1,0 +1,8 @@
+{% if currCustomer is not empty %}
+    <div class="debug-btn-wrapper pt-1 pb-1 text-center">
+        <a class="debug-btn"
+           id="debugCustomer"
+           data-toggle="modal"
+           data-backdrop="static"
+           data-target="#jegoCustomer">{% sw_icon 'avatar' style {'color': 'primary', 'size': iconSize} %}</a></div>
+{% endif %}

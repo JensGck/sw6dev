@@ -1,0 +1,17 @@
+.jego-sticky-sidebar {
+  top: 35%;
+  width: $sidebarWidth;
+  left: #{($sidebarWidth / 1.8) * (-1)};
+  transition: all 0.5s ease 0s;
+}
+
+.jego-sticky-sidebar.animation {
+  left: 0 !important;
+}
+
+.jego-debug-logo {
+  .header-logo-main {
+    max-width: #{($sidebarWidth / 1.1)};
+    height: 3rem;
+  }
+}

@@ -1,0 +1,38 @@
+{% set scrollable = scrollable ?? true %}
+{% set size = size ?? "md" %}
+{% set dialogId = dialogId %}
+{% set object = object %}
+
+<div class="modal fade"
+     id="{{ dialogId }}"
+     tabindex="-1"
+     role="dialog"
+     aria-modal="true">
+    <div class="modal-dialog modal-{{ size }} modal-dialog-centered {% if scrollable %} modal-dialog-scrollable{% endif %}"
+         role="document">
+        <div class="modal-content">
+            <div class="modal-header only-close">
+                <button type="button"
+                        class="modal-close close"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    {% block swic_transurance_modal_close_button_content %}
+                        <span aria-hidden="true">
+                                {% sw_icon 'x' style { 'size': 'sm' } %}
+                            </span>
+                    {% endblock %}
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            {% block modal_title %}{{ title }}{% endblock %}
+                        </div>
+                    </div>
+                    {% block modal_content %}{{ dump(object) }}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "name": "jego/dev",
+  "description": "Shopware 6 Dev Plugin",
+  "version": "1.0.1",
+  "type": "shopware-platform-plugin",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Jens Göckus"
+    }
+  ],
+  "extra": {
+    "shopware-plugin-class": "Jego\\Dev\\Dev",
+    "label": {
+      "de-DE": "Entwicklungshelfer",
+      "en-GB": "Dev-Tool"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Jego\\Dev\\": "src/"
+    }
+  }
+}

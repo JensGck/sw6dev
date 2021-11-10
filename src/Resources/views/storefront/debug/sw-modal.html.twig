@@ -1,0 +1,7 @@
+{% if shopware is not empty %}
+    {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+        dialogId : 'jegoSw',
+        title: shopware.config.core.basicInformation.shopName,
+        object: shopware
+    } %}
+{% endif %}

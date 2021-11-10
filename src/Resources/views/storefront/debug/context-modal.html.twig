@@ -1,0 +1,7 @@
+{% if context is not empty %}
+    {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+        dialogId : 'jegoContext',
+        title: Context,
+        object: context
+    } %}
+{% endif %}

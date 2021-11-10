@@ -1,0 +1,19 @@
+{% sw_extends 'storefront/component/product/card/box-standard.html.twig' %}
+
+{% block component_product_box_content %}
+    {% if product is not empty %}
+        <a class="debug-btn"
+           id="debugCart"
+           data-toggle="modal"
+           data-backdrop="static"
+           data-target="#jegoCart-{{ product.id }}">{% sw_icon 'bag-product' style {'color': 'primary'} %}</a>
+    {% endif %}
+    {{ parent() }}
+    {% if product is not empty %}
+        {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+            dialogId : 'jegoCart-' ~ product.id,
+            title: product.name,
+            object: product
+        } %}
+    {% endif %}
+{% endblock %}

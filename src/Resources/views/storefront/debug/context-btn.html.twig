@@ -1,0 +1,8 @@
+{% if shopware is not empty %}
+    <div class="debug-btn-wrapper pt-1 pb-1 text-center">
+        <a class="debug-btn"
+           id="debugContext"
+           data-toggle="modal"
+           data-backdrop="static"
+           data-target="#jegoContext">{% sw_icon 'shopware' style {'color': 'primary', 'size': iconSize} %}</a></div>
+{% endif %}

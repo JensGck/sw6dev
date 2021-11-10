@@ -1,0 +1,7 @@
+{% if customer is not empty %}
+    {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+        dialogId : 'jegoCustomer',
+        title: customer.firstName ~ ' ' ~ customer.lastName ~ ' - ' ~ customer.email ~ ' - GroupId:' ~ customer.groupId ,
+        object: customer
+    } %}
+{% endif %}

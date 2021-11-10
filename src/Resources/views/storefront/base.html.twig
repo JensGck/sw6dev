@@ -1,0 +1,56 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main %}
+    {% if cart is not empty %}
+        {% set currCart = cart %}
+    {% elseif page.cart is not empty %}
+        {% set currCart = page.cart %}
+    {% endif %}
+
+    {% if page.customer is not empty %}
+        {% set currCustomer = page.customer %}
+    {% elseif context.customer is not empty %}
+        {% set currCustomer = context.customer %}
+    {% elseif customer is not empty %}
+        {% set currCustomer = customer %}
+    {% endif %}
+
+    <div class="container-fluid bg-dark p-1 pt-2 pb-2 rounded-right position-fixed jego-sticky-sidebar">
+        {% sw_include 'storefront/debug/logo.html.twig' with { cart:currCart, iconSize: 'lg' } %}
+        {% sw_include 'storefront/debug/cart-btn.html.twig' with { cart:currCart, iconSize: 'lg' } %}
+        {% sw_include 'storefront/debug/customer-btn.html.twig' with {customer:currCustomer, iconSize: 'lg' } %}
+        {% sw_include 'storefront/debug/product-btn.html.twig' with {page:page, iconSize: 'lg' } %}
+        {% sw_include 'storefront/debug/sw-btn.html.twig' with {shopware:shopware, iconSize: 'lg' } %}
+        {% sw_include 'storefront/debug/page-btn.html.twig' with {page:page, iconSize: 'lg' } %}
+        {% sw_include 'storefront/debug/context-btn.html.twig' with {page:page, iconSize: 'lg' } %}
+    </div>
+    {{ parent() }}
+{% endblock %}
+
+{% block base_body_inner %}
+
+    {% if cart is not empty %}
+        {% set currCart = cart %}
+    {% elseif page.cart is not empty %}
+        {% set currCart = page.cart %}
+    {% endif %}
+
+    {% if page.customer is not empty %}
+        {% set currCustomer = page.customer %}
+    {% elseif context.customer is not empty %}
+        {% set currCustomer = context.customer %}
+    {% elseif customer is not empty %}
+        {% set currCustomer = customer %}
+    {% endif %}
+
+    <div class="sticky-top debug-container">
+        {% sw_include 'storefront/marker/environment.html.twig' %}
+    </div>
+    {{ parent() }}
+    {% sw_include 'storefront/debug/cart-modal.html.twig' with {cart:currCart} %}
+    {% sw_include 'storefront/debug/customer-modal.html.twig' with {customer:currCustomer} %}
+    {% sw_include 'storefront/debug/product-modal.html.twig' with {customer:currCustomer} %}
+    {% sw_include 'storefront/debug/sw-modal.html.twig' with {customer:currCustomer} %}
+    {% sw_include 'storefront/debug/page-modal.html.twig' with {customer:currCustomer} %}
+    {% sw_include 'storefront/debug/context-modal.html.twig' with {customer:currCustomer} %}
+{% endblock %}

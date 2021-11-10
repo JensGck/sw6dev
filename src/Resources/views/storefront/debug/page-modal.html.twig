@@ -1,0 +1,7 @@
+{% if page is not empty %}
+    {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+        dialogId : 'jegoPage',
+        title: 'Page',
+        object: page
+    } %}
+{% endif %}

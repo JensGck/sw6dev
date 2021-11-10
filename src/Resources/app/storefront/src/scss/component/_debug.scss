@@ -1,0 +1,18 @@
+.debug-container {
+
+  .environment-bar, .debug-btn {
+    z-index: 800;
+    font-weight: 600;
+  }
+
+  .environment-bar {
+    width: 100%;
+    height: $barHeight;
+  }
+}
+
+.debug-btn {
+  cursor: pointer;
+  height: $dbgBtnSize;
+  width: $dbgBtnSize;
+}

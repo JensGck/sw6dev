@@ -1,0 +1,9 @@
+{% if app.environment == "dev" %}
+    {% set color =  'green' %}
+{% elseif app.environment == "stage" %}
+    {% set color =  'yellow' %}
+{% else %}
+    {% set color =  'red' %}
+{% endif %}
+
+<div class="environment-bar" style="background-color: {{ color }}"></div>
