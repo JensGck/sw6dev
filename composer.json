@@ -16,6 +16,9 @@
       "en-GB": "Dev-Tool"
     }
   },
+  "require": {
+    "php": "^7.4"
+  },
   "autoload": {
     "psr-4": {
       "Jego\\Dev\\": "src/"
