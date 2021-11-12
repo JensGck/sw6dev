@@ -1,3 +1,11 @@
-{% if page is not empty %}
-    <div class="jego-debug-logo text-center">{% sw_include '@Storefront/storefront/layout/header/logo.html.twig' %}</div>
-{% endif %}
+{% sw_extends '@Storefront/storefront/layout/header/logo.html.twig' %}
+
+{% block layout_header_logo_inner %}
+    <div class="jego-debug-logo text-center">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block layout_header_logo_link %}
+    <div class="header-logo-main-link">{{ parent() }}</div>
+{% endblock %}

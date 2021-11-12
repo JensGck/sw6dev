@@ -24,7 +24,8 @@
     {% endif %}
 
     <div class="container-fluid bg-light border-top border-right border-bottom border-primary p-1 pt-2 pb-2 rounded-right position-fixed jego-sticky-sidebar">
-        {% sw_include 'storefront/debug/logo.html.twig' %}
+
+        {% sw_include '@Storefront/storefront/debug/logo.html.twig' %}
 
         {% if page.cart is not empty %}
             <div class="debug-btn-wrapper pt-1 pb-1 text-center">
