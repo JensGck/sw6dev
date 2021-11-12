@@ -1,12 +1,20 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
-{% block base_main %}
-    {% if cart is not empty %}
-        {% set currCart = cart %}
-    {% elseif page.cart is not empty %}
-        {% set currCart = page.cart %}
-    {% endif %}
+{#{% block base_body %}{{ parent() }}{% endblock %}#}
 
+{% block base_body_script %}
+    <script>
+        console.debug('themeId: {{ themeId }}')
+        console.debug('controllerName: {{ controllerName }}')
+        console.debug('controllerAction: {{ controllerAction }}')
+        console.debug('activeRoute: {{ activeRoute }}')
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block base_main %}
+
+    {% set iconSize = 'lg' %}
     {% if page.customer is not empty %}
         {% set currCustomer = page.customer %}
     {% elseif context.customer is not empty %}
@@ -15,42 +23,104 @@
         {% set currCustomer = customer %}
     {% endif %}
 
-    <div class="container-fluid bg-dark p-1 pt-2 pb-2 rounded-right position-fixed jego-sticky-sidebar">
-        {% sw_include 'storefront/debug/logo.html.twig' with { cart:currCart, iconSize: 'lg' } %}
-        {% sw_include 'storefront/debug/cart-btn.html.twig' with { cart:currCart, iconSize: 'lg' } %}
-        {% sw_include 'storefront/debug/customer-btn.html.twig' with {customer:currCustomer, iconSize: 'lg' } %}
-        {% sw_include 'storefront/debug/product-btn.html.twig' with {page:page, iconSize: 'lg' } %}
-        {% sw_include 'storefront/debug/sw-btn.html.twig' with {shopware:shopware, iconSize: 'lg' } %}
-        {% sw_include 'storefront/debug/page-btn.html.twig' with {page:page, iconSize: 'lg' } %}
-        {% sw_include 'storefront/debug/context-btn.html.twig' with {page:page, iconSize: 'lg' } %}
+    <div class="container-fluid bg-light border-top border-right border-bottom border-primary p-1 pt-2 pb-2 rounded-right position-fixed jego-sticky-sidebar">
+        {% sw_include 'storefront/debug/logo.html.twig' %}
+
+        {% if page.cart is not empty %}
+            <div class="debug-btn-wrapper pt-1 pb-1 text-center">
+                <a class="debug-btn"
+                   id="debugCart"
+                   data-toggle="modal"
+                   data-backdrop="static"
+                   data-target="#jegoCart">{% sw_icon 'cart' style {'color': 'primary', 'size': iconSize} %}</a></div>
+        {% endif %}
+
+        {% if currCustomer is not empty %}
+            <div class="debug-btn-wrapper pt-1 pb-1 text-center">
+                <a class="debug-btn"
+                   id="debugCustomer"
+                   data-toggle="modal"
+                   data-backdrop="static"
+                   data-target="#jegoCustomer">{% sw_icon 'avatar' style {'color': 'primary', 'size': iconSize} %}</a></div>
+        {% endif %}
+
+        {% if context is not empty %}
+            <div class="debug-btn-wrapper pt-1 pb-1 text-center">
+                <a class="debug-btn"
+                   id="debugContext"
+                   data-toggle="modal"
+                   data-backdrop="static"
+                   data-target="#jegoContext">{% sw_icon 'shopware' style {'color': 'primary', 'size': iconSize} %}</a></div>
+        {% endif %}
+
+        {% if page is not empty %}
+            <div class="debug-btn-wrapper pt-1 pb-1 text-center">
+                <a class="debug-btn"
+                   id="debugPage"
+                   data-toggle="modal"
+                   data-backdrop="static"
+                   data-target="#jegoPage">{% sw_icon 'browser' style {'color': 'primary', 'size': iconSize} %}</a></div>
+        {% endif %}
+
+        {% if page.product is not empty %}
+            <div class="debug-btn-wrapper pt-1 pb-1 text-center">
+                <a class="debug-btn"
+                   id="debugProduct"
+                   data-toggle="modal"
+                   data-backdrop="static"
+                   data-target="#jegoProduct">{% sw_icon 'debug' style {'color': 'primary', 'size': iconSize} %}</a></div>
+        {% endif %}
+
     </div>
     {{ parent() }}
 {% endblock %}
 
 {% block base_body_inner %}
 
-    {% if cart is not empty %}
-        {% set currCart = cart %}
-    {% elseif page.cart is not empty %}
-        {% set currCart = page.cart %}
-    {% endif %}
-
-    {% if page.customer is not empty %}
-        {% set currCustomer = page.customer %}
-    {% elseif context.customer is not empty %}
-        {% set currCustomer = context.customer %}
-    {% elseif customer is not empty %}
-        {% set currCustomer = customer %}
-    {% endif %}
-
     <div class="sticky-top debug-container">
         {% sw_include 'storefront/marker/environment.html.twig' %}
     </div>
+
     {{ parent() }}
-    {% sw_include 'storefront/debug/cart-modal.html.twig' with {cart:currCart} %}
-    {% sw_include 'storefront/debug/customer-modal.html.twig' with {customer:currCustomer} %}
-    {% sw_include 'storefront/debug/product-modal.html.twig' with {customer:currCustomer} %}
-    {% sw_include 'storefront/debug/sw-modal.html.twig' with {customer:currCustomer} %}
-    {% sw_include 'storefront/debug/page-modal.html.twig' with {customer:currCustomer} %}
-    {% sw_include 'storefront/debug/context-modal.html.twig' with {customer:currCustomer} %}
+
+    {% if page.cart is not empty %}
+        {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+            dialogId : 'jegoCart',
+            title: "Cart",
+            object: page.cart
+        } %}
+    {% endif %}
+
+    {% if currCustomer is not empty %}
+        {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+            dialogId : 'jegoCustomer',
+            title: currCustomer.firstName ~ ' ' ~ currCustomer.lastName ~ ' - ' ~ currCustomer.email ~ ' - GroupId:' ~ currCustomer.groupId ,
+            object: currCustomer
+        } %}
+    {% endif %}
+
+    {% if context is not empty %}
+        {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+            dialogId : 'jegoContext',
+            title: 'Context',
+            object: context
+        } %}
+    {% endif %}
+
+    {% if page is not empty %}
+        {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+            dialogId : 'jegoPage',
+            title: 'Page',
+            object: page
+        } %}
+    {% endif %}
+
+    {% if page.product is not empty %}
+        {% sw_include 'storefront/util/jego-debug-modal.html.twig' with {
+            dialogId : 'jegoProduct',
+            title: page.product.name,
+            object: page.product
+        } %}
+    {% endif %}
+
 {% endblock %}
